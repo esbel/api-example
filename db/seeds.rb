@@ -9,13 +9,36 @@ panel_providers = [
   { code: "AjaxNodes" },
   { code: "TimeNodes" },
 ]
-panel_providers.each { |data| PanelProvider.create!(data) }
+panel_providers.collect! { |data| PanelProvider.create!(data) }
 
 countries = [
+  { country_code: "BLZ", panel_provider_id: panel_providers.pop.id },
+  { country_code: "HND", panel_provider_id: panel_providers.pop.id },
+  { country_code: "SLV", panel_provider_id: panel_providers.pop.id }
 ]
-countries.each { |data| Country.create!(data) }
+countries.collect! { |data| Country.create!(data) }
 
 locations = [
+  { name: "Belize City",      external_id: "", secret_code: "", country_id: countries[0].id },
+  { name: "Belmopan",         external_id: "", secret_code: "", country_id: countries[0].id },
+  { name: "San Ignacio",      external_id: "", secret_code: "", country_id: countries[0].id },
+  { name: "Orange Walk Town", external_id: "", secret_code: "", country_id: countries[0].id },
+  { name: "San Pedro Town",   external_id: "", secret_code: "", country_id: countries[0].id },
+  { name: "Cirizak Tiwn",     external_id: "", secret_code: "", country_id: countries[0].id },
+  { name: "Atlántida",        external_id: "", secret_code: "", country_id: countries[1].id },
+  { name: "Choluteca",        external_id: "", secret_code: "", country_id: countries[1].id },
+  { name: "Colón",            external_id: "", secret_code: "", country_id: countries[1].id },
+  { name: "Comayagua",        external_id: "", secret_code: "", country_id: countries[1].id },
+  { name: "Copán",            external_id: "", secret_code: "", country_id: countries[1].id },
+  { name: "Cortés",           external_id: "", secret_code: "", country_id: countries[1].id },
+  { name: "El Paraíso",       external_id: "", secret_code: "", country_id: countries[1].id },
+  { name: "San Salvador",     external_id: "", secret_code: "", country_id: countries[2].id },
+  { name: "Santa Ana",        external_id: "", secret_code: "", country_id: countries[2].id },
+  { name: "Soyapango",        external_id: "", secret_code: "", country_id: countries[2].id },
+  { name: "San Miguel",       external_id: "", secret_code: "", country_id: countries[2].id },
+  { name: "Santa Tecla",      external_id: "", secret_code: "", country_id: countries[2].id },
+  { name: "Mejicanos ",       external_id: "", secret_code: "", country_id: countries[2].id },
+  { name: "Apopa",            external_id: "", secret_code: "", country_id: countries[2].id },
 ]
 locations.each { |data| Location.create!(data) }
 
