@@ -12,9 +12,9 @@ panel_providers = [
 panel_providers.collect! { |data| PanelProvider.create!(data) }
 
 countries = [
-  { country_code: "BLZ", panel_provider_id: panel_providers.pop.id },
-  { country_code: "HND", panel_provider_id: panel_providers.pop.id },
-  { country_code: "SLV", panel_provider_id: panel_providers.pop.id }
+  { country_code: "BLZ", panel_provider_id: panel_providers[0].id },
+  { country_code: "HND", panel_provider_id: panel_providers[1].id },
+  { country_code: "SLV", panel_provider_id: panel_providers[2].id }
 ]
 countries.collect! { |data| Country.create!(data) }
 
@@ -43,6 +43,10 @@ locations = [
 locations.each { |data| Location.create!(data) }
 
 location_groups = [
+  { name: "Cities in Belize", country_id: countries[0].id, panel_provider_id: panel_providers[0].id }
+  { name: "Cities in Honduras", country_id: countries[1].id, panel_provider_id: panel_providers[1].id }
+  { name: "Some other cities in El Salvador", country_id: countries[2].id, panel_provider_id: panel_providers[2].id }
+  { name: "Some cities in El Salvador", country_id: countries[2].id, panel_provider_id: panel_providers[1].id }
 ]
 location_groups.each { |data| LocationGroup.create!(data) }
 
