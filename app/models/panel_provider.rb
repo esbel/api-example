@@ -1,4 +1,6 @@
 class PanelProvider < ActiveRecord::Base
+  KNOWN_PROVIDER_CODES = [ "TimeLetters", "AjaxNodes", "TimeNodes" ]
+
   begin :associations
     has_many :countries
     has_many :location_groups
@@ -7,6 +9,7 @@ class PanelProvider < ActiveRecord::Base
 
   begin :validations
     validate :code,
-      presence: true
+      inclusion: { in: KNOWN_PROVIDER_CODES }
+      presence: true,
   end
 end
