@@ -6,12 +6,6 @@ gem 'rails', '4.1.8'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',      group: :doc
-
 # Use unicorn as the app server
 gem 'puma'
 
@@ -27,6 +21,9 @@ gem "redis-rails"
 
 # parse XML documents
 gem "nokogiri"
+
+# provide good serialization
+gem "active_model_serializers"
 
 group :development, :test do
   # test application using RSpec
