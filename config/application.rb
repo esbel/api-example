@@ -16,6 +16,8 @@ Bundler.require(*Rails.groups)
 
 module Zappistore
   class Application < Rails::Application
+    # use redis as cache provider
+    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
 
     # limit (throttle) http requests to the API
     config.middleware.use Rack::Throttle::Interval, :cache => Redis.new, :key_prefix => :throttle

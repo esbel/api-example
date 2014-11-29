@@ -23,7 +23,10 @@ gem "rack-throttle"
 
 # provide Redis cache client
 gem "redis"
+gem "redis-rails"
 
+# parse XML documents
+gem "nokogiri"
 
 group :development, :test do
   # test application using RSpec
