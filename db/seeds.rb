@@ -40,17 +40,37 @@ locations = [
   { name: "Mejicanos ",       external_id: "", secret_code: "", country_id: countries[2].id },
   { name: "Apopa",            external_id: "", secret_code: "", country_id: countries[2].id },
 ]
-locations.each { |data| Location.create!(data) }
+locations.collect! { |data| Location.create!(data) }
 
 location_groups = [
-  { name: "Cities in Belize", country_id: countries[0].id, panel_provider_id: panel_providers[0].id }
-  { name: "Cities in Honduras", country_id: countries[1].id, panel_provider_id: panel_providers[1].id }
-  { name: "Some other cities in El Salvador", country_id: countries[2].id, panel_provider_id: panel_providers[2].id }
+  { name: "Cities in Belize", country_id: countries[0].id, panel_provider_id: panel_providers[0].id },
+  { name: "Cities in Honduras", country_id: countries[1].id, panel_provider_id: panel_providers[1].id },
+  { name: "Some other cities in El Salvador", country_id: countries[2].id, panel_provider_id: panel_providers[2].id },
   { name: "Some cities in El Salvador", country_id: countries[2].id, panel_provider_id: panel_providers[1].id }
 ]
-location_groups.each { |data| LocationGroup.create!(data) }
+location_groups.collect! { |data| LocationGroup.create!(data) }
 
-countries = [
+root_groups = [
+  { name: "Group A", secret_code: "", country_id: countries[0].id, panel_provider_id: panel_providers[0].id },
+  { name: "Group B", secret_code: "", country_id: countries[1].id, panel_provider_id: panel_providers[0].id },
+  { name: "Group C", secret_code: "", country_id: countries[1].id, panel_provider_id: panel_providers[0].id },
+  { name: "Group D", secret_code: "", country_id: countries[2].id, panel_provider_id: panel_providers[0].id }
 ]
+root_groups.collect! { |data| TargetGroup.create!(data) }
 
-target_groups.each { |data| TargetGroup.create!(data) }
+children_groups = [
+  { name: "Group A.0", secret_code: "", country_id: countries[0].id, panel_provider_id: panel_providers[0].id, parent_id: root_groups[0].id },
+  { name: "Group B.1", secret_code: "", country_id: countries[1].id, panel_provider_id: panel_providers[1].id, parent_id: root_groups[1].id },
+  { name: "Group C.2", secret_code: "", country_id: countries[1].id, panel_provider_id: panel_providers[2].id, parent_id: root_groups[2].id },
+  { name: "Group D.3", secret_code: "", country_id: countries[2].id, panel_provider_id: panel_providers[2].id, parent_id: root_groups[3].id }
+]
+children_groups.collect! { |data| TargetGroup.create!(data) }
+
+grandchildren_groups = [
+  { name: "Group A.0.1", secret_code: "", country_id: countries[0].id, panel_provider_id: panel_providers[0].id, parent_id: children_groups[0].id },
+  { name: "Group B.1.1", secret_code: "", country_id: countries[1].id, panel_provider_id: panel_providers[0].id, parent_id: children_groups[1].id },
+  { name: "Group C.2.1", secret_code: "", country_id: countries[1].id, panel_provider_id: panel_providers[1].id, parent_id: children_groups[2].id },
+  { name: "Group D.3.1", secret_code: "", country_id: countries[2].id, panel_provider_id: panel_providers[2].id, parent_id: children_groups[3].id }
+]
+grandchildren_groups.collect! { |data| TargetGroup.create!(data) }
+
