@@ -9,6 +9,7 @@ class Country < ActiveRecord::Base
 
   begin :validations
     validate :country_code,
-      presence: true
+      presence: true,
+      uniqueness: true
   end
 end
