@@ -9,7 +9,7 @@ class PanelProvider < ActiveRecord::Base
 
   begin :validations
     validate :code,
-      inclusion: { in: KNOWN_PROVIDER_CODES }
-      presence: true,
+      inclusion: { in: KNOWN_PROVIDER_CODES },
+      presence: true
   end
 end
