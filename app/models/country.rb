@@ -3,6 +3,7 @@ class Country < ActiveRecord::Base
     belongs_to :panel_provider
 
     has_many :location_groups
+    has_many :target_groups
   end
 
   begin :scopes
