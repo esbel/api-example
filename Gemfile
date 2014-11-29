@@ -18,6 +18,13 @@ gem 'puma'
 # support for tree-like structures in ActiveRecord
 gem "acts_as_tree"
 
+# limit http request rates
+gem "rack-throttle"
+
+# provide Redis cache client
+gem "redis"
+
+
 group :development, :test do
   # test application using RSpec
   gem 'rspec', '~> 3.1'

@@ -8,6 +8,7 @@ require "action_mailer/railtie"
 # require "action_view/railtie"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
+require 'rack/throttle'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -15,6 +16,11 @@ Bundler.require(*Rails.groups)
 
 module Zappistore
   class Application < Rails::Application
+
+    # limit (throttle) http requests to the API
+    config.middleware.use Rack::Throttle::Interval, :cache => Redis.new, :key_prefix => :throttle
+    config.middleware.use Rack::Throttle::Minute, :max => 60
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
