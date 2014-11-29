@@ -15,6 +15,9 @@ gem 'sdoc', '~> 0.4.0',      group: :doc
 # Use unicorn as the app server
 gem 'puma'
 
+# support for tree-like structures in ActiveRecord
+gem "acts_as_tree"
+
 group :development, :test do
   # test application using RSpec
   gem 'rspec', '~> 3.1'
