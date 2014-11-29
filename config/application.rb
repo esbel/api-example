@@ -23,6 +23,9 @@ module Zappistore
     config.middleware.use Rack::Throttle::Interval, :cache => Redis.new, :key_prefix => :throttle
     config.middleware.use Rack::Throttle::Minute, :max => 60
 
+    # autoload all service objects
+    config.autoload_paths += %W(#{config.root}/app/service_objects)
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
