@@ -16,6 +16,12 @@ than input-output pairs in black-box style. Integration tests on the other hand,
 provide across-the-stack tests for the application, including database queries
 and calls to external webservice.
 
+Additionally, entire business logic is encapsulated in Query and Service objects
+to provide an easy way to re-use them in another context (i.e. standard Rails
+controllers). That also allows the developer to provide more thorough test
+suite, thanks to huge case isolation (i.e. more combinations are tested by 3
+layers of tests each containing 3 cases, than 3 tests going through all layers).
+
 === Installation
 
 Set up environment variables `POSTGRES_USERNAME` and `POSTGRES_PASSWORD` to your
