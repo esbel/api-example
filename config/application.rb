@@ -25,6 +25,9 @@ module Zappistore
     # autoload all APIs
     config.autoload_paths += %W(#{config.root}/app/api)
 
+    # autoload all query objects
+    config.autoload_paths += %W(#{config.root}/app/query_objects)
+
     # autoload all service objects
     config.autoload_paths += %W(#{config.root}/app/service_objects)
 
