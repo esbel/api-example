@@ -1,6 +1,6 @@
 class PublicAPI < Grape::API
   format :json
-  format :json
+  formatter :json, Grape::Formatter::ActiveModelSerializers
 
   helpers do
     def country

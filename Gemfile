@@ -28,6 +28,9 @@ gem "active_model_serializers"
 # build APIs with ease :)
 gem "grape"
 
+# integrate Grape with AMS
+gem "grape-active_model_serializers"
+
 group :development, :test do
   # test application using RSpec
   gem 'rspec', '~> 3.1'
