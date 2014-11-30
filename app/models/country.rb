@@ -1,4 +1,6 @@
 class Country < ActiveRecord::Base
+  CODE_PATTERN = /\A[A-Z]{3}\z/
+
   begin :associations
     belongs_to :panel_provider
 
@@ -12,6 +14,7 @@ class Country < ActiveRecord::Base
 
   begin :validations
     validate :country_code,
+      format: { with: CODE_PATTERN },
       presence: true,
       uniqueness: true
   end
