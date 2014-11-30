@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Public API" do
+RSpec.describe "Private API" do
   let(:countries) { double(take: country) }
   let(:country)   { double(Country, country_code: country_code) }
 
