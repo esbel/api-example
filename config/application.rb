@@ -20,8 +20,7 @@ module Zappistore
     config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
 
     # limit (throttle) http requests to the API
-    config.middleware.use Rack::Throttle::Interval, :cache => Redis.new, :key_prefix => :throttle
-    config.middleware.use Rack::Throttle::Minute, :max => 60
+    config.middleware.use Rack::Throttle::Minute, :max => 60, :cache => Redis.new, :key_prefix => :throttle
 
     # autoload all service objects
     config.autoload_paths += %W(#{config.root}/app/service_objects)
