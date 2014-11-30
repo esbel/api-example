@@ -22,6 +22,9 @@ module Zappistore
     # limit (throttle) http requests to the API
     config.middleware.use Rack::Throttle::Minute, :max => 60, :cache => Redis.new, :key_prefix => :throttle
 
+    # autoload all APIs
+    config.autoload_paths += %W(#{config.root}/app/api)
+
     # autoload all service objects
     config.autoload_paths += %W(#{config.root}/app/service_objects)
 
