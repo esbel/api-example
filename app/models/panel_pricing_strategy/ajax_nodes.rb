@@ -5,7 +5,7 @@ module PanelPricingStrategy
     def call(opts = {})
       Rails.cache.fetch("panel-price-#{self.class.to_s}", expires_in: 10.minutes) do
         uri = URI.parse(URL)
-        file = uri.open.lines.to_a.join
+        file = uri.open.each_line.to_a.join
         json_data = JSON.parse(file)
 
         values = json_data["responseData"]["entries"].collect do |entry|
