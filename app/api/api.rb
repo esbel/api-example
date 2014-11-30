@@ -1,4 +1,4 @@
-class PrivateAPI < Grape::API
+class API < Grape::API
   format :json
   formatter :json, Grape::Formatter::ActiveModelSerializers
 

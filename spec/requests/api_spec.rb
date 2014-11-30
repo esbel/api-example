@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Public API" do
+RSpec.describe "API" do
   let(:countries)     { double(take: country) }
   let(:target_groups) { double(find: []) }
   let(:country) do
