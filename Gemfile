@@ -31,6 +31,10 @@ gem "grape"
 # integrate Grape with AMS
 gem "grape-active_model_serializers"
 
+# provide a virtual web environment for faster testing
+gem "vcr"
+gem "webmock"
+
 group :development, :test do
   # test application using RSpec
   gem 'rspec', '~> 3.1'
