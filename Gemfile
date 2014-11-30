@@ -25,6 +25,9 @@ gem "nokogiri"
 # provide good serialization
 gem "active_model_serializers"
 
+# build APIs with ease :)
+gem "grape"
+
 group :development, :test do
   # test application using RSpec
   gem 'rspec', '~> 3.1'
