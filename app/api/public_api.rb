@@ -2,6 +2,10 @@ class PublicAPI < Grape::API
   format :json
 
   helpers do
+    def country
+      @country ||= (Country.by_country_code(params[:country_code]).take) ||
+        (raise ActiveRecord::RecordNotFound)
+    end
   end
 
   resources :target_groups do
