@@ -50,6 +50,11 @@ location_groups = [
 ]
 location_groups.collect! { |data| LocationGroup.create!(data) }
 
+location_groups[0].locations << locations.first(6)
+location_groups[1].locations << locations[6..13]
+location_groups[2].locations << locations[14..17]
+location_groups[3].locations << locations[16..-1]
+
 root_groups = [
   { name: "Group A", secret_code: "", country_id: countries[0].id, panel_provider_id: panel_providers[0].id },
   { name: "Group B", secret_code: "", country_id: countries[1].id, panel_provider_id: panel_providers[0].id },
