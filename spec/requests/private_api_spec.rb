@@ -1,8 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "Private API" do
-  let(:countries) { double(take: country) }
-  let(:country)   { double(Country, country_code: country_code) }
+RSpec.describe "Public API" do
+  let(:countries)     { double(take: country) }
+  let(:target_groups) { double(find: []) }
+  let(:country) do
+    double(Country, country_code: country_code, target_groups: target_groups)
+  end
 
   before do
     allow(Country).
@@ -11,7 +14,28 @@ RSpec.describe "Private API" do
       and_return(countries)
   end
 
-  describe "/locations/:country_code" do
+  shared_examples_for "not_found_response" do
+      before do
+        allow(Country).
+          to receive(:by_country_code).
+          and_return(double(take: nil))
+      end
+
+      it "returns 404" do
+        get url
+
+        expect(response.status).to eq(404)
+      end
+
+      it "renders error response" do
+        get url
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response).
+          to eq({ "status" => 404, "message" => "Not Found."})
+      end
+  end
+
+  describe "GET /locations/:country_code" do
     let(:country_code) { "BLZ" }
     let(:query_object) { double(LocationsByCountryQuery, call: []) }
 
@@ -43,29 +67,13 @@ RSpec.describe "Private API" do
 
     context "with unknown country" do
       let(:invalid_country_code) { "MEX" }
+      let(:url)                  { "/locations/#{invalid_country_code}" }
 
-      before do
-        allow(Country).
-          to receive(:by_country_code).
-          and_return(double(take: nil))
-      end
-
-      it "returns 404" do
-        get "/locations/#{invalid_country_code}"
-
-        expect(response.status).to eq(404)
-      end
-
-      it "renders error response" do
-        get "/locations/#{invalid_country_code}"
-        parsed_response = JSON.parse(response.body)
-        expect(parsed_response).
-          to eq({ "status" => 404, "message" => "Not Found."})
-      end
+      it_behaves_like "not_found_response"
     end
   end
 
-  describe "/target_groups/:country_code" do
+  describe "GET /target_groups/:country_code" do
     let(:country_code) { "BLZ" }
     let(:query_object) { double(TargetGroupsByCountryQuery, call: []) }
 
@@ -96,12 +104,11 @@ RSpec.describe "Private API" do
 
     context "with unknown country" do
       let(:invalid_country_code) { "MEX" }
+      let(:url)                  { "/target_groups/#{invalid_country_code}" }
 
-      before do
-        allow(Country).
-          to receive(:by_country_code).
-          and_return(double(take: nil))
-      end
+      it_behaves_like "not_found_response"
+    end
+  end
 
       it "returns 404" do
         get "/target_groups/#{invalid_country_code}"
