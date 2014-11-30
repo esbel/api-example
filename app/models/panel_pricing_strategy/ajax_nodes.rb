@@ -1,5 +1,3 @@
-require 'open-uri'
-
 module PanelPricingStrategy
   class AjaxNodes
     URL = "https://ajax.googleapis.com/ajax/services/feed/find?v=1.0&q=news"

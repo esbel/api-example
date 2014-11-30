@@ -1,5 +1,3 @@
-require 'open-uri'
-
 module PanelPricingStrategy
   class TimeNodes
     URL = "http://time.com"

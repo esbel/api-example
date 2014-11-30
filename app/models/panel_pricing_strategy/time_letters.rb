@@ -1,5 +1,3 @@
-require 'open-uri'
-
 module PanelPricingStrategy
   class TimeLetters
     URL = "http://time.com"
