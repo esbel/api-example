@@ -110,17 +110,56 @@ RSpec.describe "Public API" do
     end
   end
 
-      it "returns 404" do
-        get "/target_groups/#{invalid_country_code}"
+  describe "POST /evaluate_target" do
+    let(:country_code)    { "SLV" }
+    let(:target_group)    { double(TargetGroup, id: target_group_id) }
+    let(:target_group_id) { "42" }
+    let(:target_groups)   { double(find: target_group) }
+    let(:location_id)     { "32" }
+    let(:panel_size)      { "200" }
+    let(:service_object)  { double(CalculatePrice, call: price) }
+    let(:price)           { 2000 }
+    let(:locations)       { [ { id: location_id, panel_size: panel_size } ] }
+    let(:request_data) do
+      {
+        country_code:    country_code,
+        target_group_id: target_group_id,
+        locations:       locations,
+      }
+    end
 
-        expect(response.status).to eq(404)
+    before do
+      allow(CalculatePrice).to receive(:new).and_return(service_object)
+    end
+
+    context "with valid params" do
+      it "initializes CalculatePrice service object with params" do
+        locations_array = locations.map { |loc| Hashie::Mash.new(loc) }
+
+        expect(CalculatePrice).
+          to receive(:new).
+          with(country, target_group, locations_array)
+
+        post "evaluate_target", request_data
       end
 
-      it "renders error response" do
-        get "/target_groups/#{invalid_country_code}"
+      it "calls CalculatePrice service object to get price" do
+        expect(service_object).to receive(:call)
+
+        post "evaluate_target", request_data
+      end
+
+      it "returns the price" do
+        post "evaluate_target", request_data
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response).
-          to eq({ "status" => 404, "message" => "Not Found."})
+
+        expect(parsed_response).to eq({"price" => price})
+      end
+
+      it "returns HTTP 201 created" do
+        post "evaluate_target", request_data
+
+        expect(response.status).to eq(201)
       end
     end
   end
