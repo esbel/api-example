@@ -13,7 +13,7 @@ RSpec.describe "Public API" do
 
   describe "/locations/:country_code" do
     let(:country_code) { "BLZ" }
-    let(:query_object) { double(LocationsByCountryQuery, call: true) }
+    let(:query_object) { double(LocationsByCountryQuery, call: []) }
 
     before do
       allow(LocationsByCountryQuery).
@@ -32,6 +32,12 @@ RSpec.describe "Public API" do
         get "/locations/#{country_code}"
 
         expect(response.status).to eq(200)
+      end
+
+      it "provides JSON response" do
+        get "/locations/#{country_code}"
+
+        expect { JSON.parse(response.body) }.not_to raise_error
       end
     end
 
@@ -61,7 +67,7 @@ RSpec.describe "Public API" do
 
   describe "/target_groups/:country_code" do
     let(:country_code) { "BLZ" }
-    let(:query_object) { double(TargetGroupsByCountryQuery, call: true) }
+    let(:query_object) { double(TargetGroupsByCountryQuery, call: []) }
 
     before do
       allow(TargetGroupsByCountryQuery).
@@ -79,6 +85,12 @@ RSpec.describe "Public API" do
       it "returns 200" do
         get "/target_groups/#{country_code}"
         expect(response.status).to eq(200)
+      end
+
+      it "provides JSON response" do
+        get "/target_groups/#{country_code}"
+
+        expect { JSON.parse(response.body) }.not_to raise_error
       end
     end
 
