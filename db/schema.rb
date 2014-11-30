@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141130184046) do
+ActiveRecord::Schema.define(version: 20141130235415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20141130184046) do
     t.datetime "updated_at"
   end
 
+  add_index "countries", ["country_code"], name: "index_countries_on_country_code", using: :btree
+  add_index "countries", ["panel_provider_id"], name: "index_countries_on_panel_provider_id", using: :btree
+
   create_table "location_groups", force: true do |t|
     t.string   "name"
     t.integer  "country_id"
@@ -31,10 +34,16 @@ ActiveRecord::Schema.define(version: 20141130184046) do
     t.datetime "updated_at"
   end
 
+  add_index "location_groups", ["country_id"], name: "index_location_groups_on_country_id", using: :btree
+  add_index "location_groups", ["panel_provider_id"], name: "index_location_groups_on_panel_provider_id", using: :btree
+
   create_table "location_groups_locations", id: false, force: true do |t|
     t.integer "location_id"
     t.integer "location_group_id"
   end
+
+  add_index "location_groups_locations", ["location_group_id"], name: "index_location_groups_locations_on_location_group_id", using: :btree
+  add_index "location_groups_locations", ["location_id"], name: "index_location_groups_locations_on_location_id", using: :btree
 
   create_table "locations", force: true do |t|
     t.string   "name"
@@ -45,11 +54,15 @@ ActiveRecord::Schema.define(version: 20141130184046) do
     t.datetime "updated_at"
   end
 
+  add_index "locations", ["country_id"], name: "index_locations_on_country_id", using: :btree
+
   create_table "panel_providers", force: true do |t|
     t.string   "code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "panel_providers", ["code"], name: "index_panel_providers_on_code", using: :btree
 
   create_table "target_groups", force: true do |t|
     t.string   "name"
@@ -61,5 +74,9 @@ ActiveRecord::Schema.define(version: 20141130184046) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "target_groups", ["country_id"], name: "index_target_groups_on_country_id", using: :btree
+  add_index "target_groups", ["panel_provider_id"], name: "index_target_groups_on_panel_provider_id", using: :btree
+  add_index "target_groups", ["parent_id"], name: "index_target_groups_on_parent_id", using: :btree
 
 end
