@@ -41,17 +41,18 @@ class API < Grape::API
     end
   end
 
+  resource :evaluate_target do
+    desc "return price for given panel"
+    params do
+      requires :country_code,    type: String,  desc: 'Three-letter country code'
+      requires :target_group_id, type: Integer, desc: 'TargetGroup identifier'
+      requires :locations,       type: Array,   desc: 'An array of locations (e.g. {id: 123, panel_size: 300})'
+    end
+    post "/", requirements: { country_code: /[A-Z]{3}/ } do
+      @price = CalculatePrice.new(country, target_group, params[:locations]).call
 
-  desc "return price for given panel"
-  params do
-    requires :country_code,    type: String,  desc: 'Three-letter country code'
-    requires :target_group_id, type: Integer, desc: 'TargetGroup identifier'
-    requires :locations,       type: Array,   desc: 'An array of locations (e.g. {id: 123, panel_size: 300})'
-  end
-  post "evaluate_target", requirements: { country_code: /[A-Z]{3}/ } do
-    @price = CalculatePrice.new(country, target_group, params[:locations]).call
-
-    status 201
-    { price: @price }
+      status 201
+      { price: @price }
+    end
   end
 end
