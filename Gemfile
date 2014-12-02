@@ -10,30 +10,34 @@ gem 'pg'
 gem 'puma'
 
 # support for tree-like structures in ActiveRecord
-gem "acts_as_tree"
+gem 'acts_as_tree'
 
 # limit http request rates
-gem "rack-throttle"
+gem 'rack-throttle'
 
 # provide Redis cache client
-gem "redis"
-gem "redis-rails"
+gem 'redis'
+gem 'redis-rails'
 
 # parse XML documents
-gem "nokogiri"
+gem 'nokogiri'
 
 # provide good serialization
-gem "active_model_serializers"
+gem 'active_model_serializers'
 
 # build APIs with ease :)
-gem "grape"
+gem 'grape'
 
 # integrate Grape with AMS
-gem "grape-active_model_serializers"
+gem 'grape-active_model_serializers'
 
 # provide a virtual web environment for faster testing
-gem "vcr"
-gem "webmock"
+gem 'vcr'
+gem 'webmock'
+
+# # authenticate using Devise
+gem 'devise', tag: 'v3.2.3', github: 'plataformatec/devise'
+gem 'bcrypt', github: 'codahale/bcrypt-ruby'
 
 group :development, :test do
   # test application using RSpec

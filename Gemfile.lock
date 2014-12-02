@@ -1,3 +1,21 @@
+GIT
+  remote: git://github.com/codahale/bcrypt-ruby.git
+  revision: b82c7140eb4ecedc20ab3a7c0d0801667d1907b3
+  specs:
+    bcrypt (3.1.9)
+
+GIT
+  remote: git://github.com/plataformatec/devise.git
+  revision: 8f03d50d157e488f837ff0237f5eda73aadf9653
+  tag: v3.2.3
+  specs:
+    devise (3.2.3)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -37,6 +55,8 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
+    bcrypt-ruby (3.1.5)
+      bcrypt (>= 3.1.3)
     builder (3.2.2)
     celluloid (0.16.0)
       timers (~> 4.0.0)
@@ -95,6 +115,7 @@ GEM
     multi_xml (0.5.5)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
+    orm_adapter (0.5.0)
     pg (0.17.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -192,6 +213,8 @@ GEM
       coercible (~> 1.0)
       descendants_tracker (~> 0.0, >= 0.0.3)
       equalizer (~> 0.0, >= 0.0.9)
+    warden (1.2.3)
+      rack (>= 1.0)
     webmock (1.20.4)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -202,6 +225,8 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   acts_as_tree
+  bcrypt!
+  devise!
   grape
   grape-active_model_serializers
   guard
