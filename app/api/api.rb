@@ -2,6 +2,7 @@ class API < Grape::API
   format :json
   formatter :json, Grape::Formatter::ActiveModelSerializers
 
+  helpers AuthenticationHelpers
   helpers do
     def country
       @country ||= (Country.by_country_code(params[:country_code]).take) ||
@@ -42,6 +43,11 @@ class API < Grape::API
   end
 
   resource :evaluate_target do
+    # Private API - uthenticate
+    before do
+      unauthorized! unless authenticated
+    end
+
     desc "return price for given panel"
     params do
       requires :country_code,    type: String,  desc: 'Three-letter country code'
