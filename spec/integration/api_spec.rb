@@ -86,8 +86,8 @@ RSpec.describe "API" do
     end
   end
 
-
   describe "POST /evaluate_target" do
+    let(:token) { "sample-token" }
     let(:request_parameters) do
       {
         country_code:    "BLZ",
@@ -95,8 +95,16 @@ RSpec.describe "API" do
         locations:       [
           { id: location.id,         panel_size: 300 },
           { id: another_location.id, panel_size: 200 },
-        ]
+        ],
+        access_token: token
       }
+    end
+    let!(:user) do
+      User.create!({
+        authentication_token: token,
+        email: "my.email@example.com",
+        password: "empty-passwd"
+      })
     end
 
     before do
@@ -107,13 +115,25 @@ RSpec.describe "API" do
       VCR.eject_cassette "pricing_data_requests"
     end
 
-    it "returns serialized array of target groups" do
-      post "/evaluate_target", request_parameters
-      parsed_response = JSON.parse(response.body)
+    context "with valid token" do
+      it "returns serialized array of target groups" do
+        post "/evaluate_target", request_parameters
+        parsed_response = JSON.parse(response.body)
 
-      expected_response = { "price" => 30592.0 }
-      expect(parsed_response).to eq(expected_response)
+        expected_response = { "price" => 30592.0 }
+        expect(parsed_response).to eq(expected_response)
+      end
+    end
 
+    context "with invalid token" do
+      let(:invalid_token) { "invalid-token" }
+
+      it "returns error response" do
+        post "/evaluate_target",
+          request_parameters.clone.merge(access_token: invalid_token)
+
+        expect(response.status).to eq(401)
+      end
     end
   end
 end
