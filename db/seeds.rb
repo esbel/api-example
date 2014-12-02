@@ -1,5 +1,5 @@
 # clean existing data
-seeded_classes = [ Country, Location, LocationGroup, PanelProvider, TargetGroup ]
+seeded_classes = [ Country, Location, LocationGroup, PanelProvider, TargetGroup, User ]
 seeded_classes.each(&:delete_all)
 
 
@@ -79,3 +79,5 @@ grandchildren_groups = [
 ]
 grandchildren_groups.collect! { |data| TargetGroup.create!(data) }
 
+
+User.create!(:password => "sample-password", email: "sample@example.com")
